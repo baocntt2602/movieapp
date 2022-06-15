@@ -67,7 +67,10 @@ dependencies {
     implementation(Libraries.gson)
 
     implementation(Libraries.glide)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha03")
     annotationProcessor(Libraries.glideAnnotationProcessor)
+
+    implementation(Libraries.recyclerview)
 }
 
 // Allow references to generated code

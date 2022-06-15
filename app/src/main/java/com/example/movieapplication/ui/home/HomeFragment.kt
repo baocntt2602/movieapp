@@ -7,6 +7,7 @@ import com.example.movieapplication.data.models.UIState
 import com.example.movieapplication.databinding.FragmentHomeBinding
 import com.example.movieapplication.ui.base.BaseFragment
 import com.example.movieapplication.ui.home.movie_list.MovieAdapter
+import com.example.movieapplication.utils.extensions.onTextChangesDebounce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,23 +20,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         super.onViewCreated(view, savedInstanceState)
         viewModel.getMovies()
         setUpRV()
+        setUpSearchEvent()
+    }
+
+    private fun setUpSearchEvent() {
+        binding.edtSearch.onTextChangesDebounce {
+            binding.rvMovies.unlockLoadMore()
+            viewModel.updateQuery(it)
+        }
     }
 
     private fun setUpRV() {
-        binding.rvMovies.adapter = movieAdapter
+        binding.rvMovies.apply {
+            loadMoreInvoker = {
+                viewModel.getMoreMovies()
+            }
+            adapter = movieAdapter
+        }
     }
 
     override fun onSubscribeVM() {
         super.onSubscribeVM()
-        viewModel.movies.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UIState.Loading -> {}
-                is UIState.Success -> {
-                    movieAdapter.submitList(state.data)
-                }
-                else -> {
+        viewModel.movies.observe(viewLifecycleOwner) { data ->
+            movieAdapter.submitList(data)
+        }
 
-                }
+        viewModel.firstLoad.observe(this) {
+            handleLoading(it is UIState.Loading)
+        }
+
+        viewModel.loadingMore.observe(this) {
+            if (it is UIState.Loading) {
+                binding.rvMovies.showLoadMoreIndicator()
+            } else {
+                binding.rvMovies.hideLoadMoreIndicator()
             }
         }
     }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.movieapplication.ui.MainActivity
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
@@ -33,5 +34,9 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    fun handleLoading(loading: Boolean) {
+        (requireActivity() as? MainActivity)?.handleLoading(loading)
     }
 }
