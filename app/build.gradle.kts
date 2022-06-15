@@ -10,9 +10,20 @@ plugins {
 android {
     compileSdk = 31
 
+    buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://www.omdbapi.com\"")
+            buildConfigField("String", "API_KEY", getLocalProperty("movie.key"))
+        }
+
+        create("develop") {
+            initWith(getByName("debug"))
+        }
+    }
+
     defaultConfig {
-        applicationId = "com.alext.umbalena"
-        minSdk = 21
+        applicationId = "com.alext.movie"
+        minSdk = 24
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
