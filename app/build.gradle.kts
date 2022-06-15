@@ -65,6 +65,9 @@ dependencies {
     implementation(Libraries.retrofit)
     implementation(Libraries.retrofitGsonConverter)
     implementation(Libraries.gson)
+
+    implementation(Libraries.glide)
+    annotationProcessor(Libraries.glideAnnotationProcessor)
 }
 
 // Allow references to generated code
