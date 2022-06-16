@@ -8,6 +8,6 @@ suspend fun <T : Any> ApiResponse<T>.coSuccessOrThrow(
 ) {
     when (this) {
         is ApiResponse.Success -> func.invoke(this.data)
-        else -> throw Throwable("Not Success response")
+        is ApiResponse.ApiFailure -> throw Throwable(this.message)
     }
 }

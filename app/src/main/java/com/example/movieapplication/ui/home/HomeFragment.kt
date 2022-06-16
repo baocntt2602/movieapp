@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun setUpSearchEvent() {
         binding.edtSearch.onTextChangesDebounce {
             binding.rvMovies.unlockLoadMore()
-            viewModel.updateQuery(it)
+            viewModel.updateQuery(it.trim())
         }
     }
 

@@ -73,10 +73,9 @@ class HomeViewModel @Inject constructor(
     }
 
     fun updateQuery(search: String) {
-        if (search.isNotEmpty()) {
-            query.search = search
-        } else {
-            query.search = "Marvel"
+        if (search == query.search) return
+        query.search = search.ifEmpty {
+            DEFAULT_SEARCH
         }
         getMovies()
     }
@@ -98,4 +97,6 @@ class HomeViewModel @Inject constructor(
     }
 }
 
-data class MovieQuery(var search: String = "Marvel", var page: Int = 1)
+private const val DEFAULT_SEARCH = "Marvel"
+
+data class MovieQuery(var search: String = DEFAULT_SEARCH, var page: Int = 1)

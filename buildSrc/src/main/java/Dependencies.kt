@@ -16,6 +16,7 @@ object Versions {
 
     const val glideVersion = "4.13.0"
     const val rvVersion = "1.2.0-alpha04"
+    const val lifecycle = "2.4.0-alpha03"
 }
 
 object Libraries {
@@ -28,6 +29,7 @@ object Libraries {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompatVersion}"
     const val googleMaterial =
         "com.google.android.material:material:${Versions.googleMaterialVersion}"
+    const val androidXLifecycle ="androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
 
     const val navFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navVersion}"
     const val navUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navVersion}"

@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class LoadMoreRecyclerView : RecyclerView {
+class LoadMoreRecyclerView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null
+) : RecyclerView(context, attrs) {
 
     private var externalScrollListener: OnScrollChangeListener? = null
     var loadMoreInvoker: (() -> Unit)? = null
@@ -15,16 +17,6 @@ class LoadMoreRecyclerView : RecyclerView {
     private val loadMoreAdapter = LoadingAdapter()
 
     private var dataAdapter: Adapter<*>? = null
-
-    constructor(context: Context) : this(context, null, 0)
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
-    )
 
     override fun onFinishInflate() {
         super.onFinishInflate()
